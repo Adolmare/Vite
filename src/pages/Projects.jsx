@@ -7,7 +7,7 @@ const Projects = () => {
   useEffect(() => {
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    fetch(`${apiUrl}/projects`)
+    fetch(`${apiUrl}/projects/`)
     .then((response) => response.json())
     .then((data) => setProjects(data))
     .catch((error) => console.error("Error fetching projects:", error));
