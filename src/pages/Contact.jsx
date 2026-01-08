@@ -15,18 +15,17 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus({ loading: true, message: 'Iniciando transmisión...', type: 'info' });
-    const apiUrl = import.meta.env.VITE_API_URL;
 
     try {
-      const response = await fetch(`${apiUrl}/api/enviar-contacto/`, { 
+      const response = await fetch('http://localhost:8000/api/enviar-contacto/', { // Ajusta tu URL de Django
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          nombre: formState.name,   // Asegúrate de que coincida con lo que espera Django
+          name: formState.name,   // Asegúrate de que coincida con lo que espera Django
           email: formState.email,
-          mensaje: formState.message
+          message: formState.message
         }),
       });
 
