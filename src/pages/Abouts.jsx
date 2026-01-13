@@ -1,4 +1,5 @@
 import React from "react";
+import Footer from "../../components/Footer";
 
 const Abouts = () => {
   return (
@@ -74,7 +75,7 @@ const Abouts = () => {
         </div>
       </div>
 
-    
+    <Footer />
     </div>
   );
 };

@@ -1,47 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React from 'react';
 import ContactItem from '../../components/ContactItem';
-import InputGroup from '../../components/InputGroup';
+import WhatsAppButton from '../../components/WhatsAppButton';
 
 const Contact = () => {
-  const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState({ loading: false, message: '', type: '' }); // Para feedback
-  const form = useRef();
-
-  const handleChange = (e) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
-  };
-
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setStatus({ loading: true, message: 'Iniciando transmisión...', type: 'info' });
-    const apiUrl = import.meta.env.VITE_API_URL;
-    try {
-      const response = await fetch(`${apiUrl}/api/enviar-contacto/`, { // Ajusta tu URL de Django
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formState.name,   // Asegúrate de que coincida con lo que espera Django
-          email: formState.email,
-          message: formState.message
-        }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setStatus({ loading: false, message: 'Protocolo completado. Mensaje enviado.', type: 'success' });
-        setFormState({ name: '', email: '', message: '' }); // Limpiar formulario
-      } else {
-        throw new Error(data.message || 'Error en el servidor');
-      }
-    } catch (error) {
-      setStatus({ loading: false, message: 'Fallo en la conexión: ' + error.message, type: 'error' });
-    }
-  };
-
   return (
     <div className="relative z-10 w-full h-full overflow-y-auto flex flex-col font-sans text-white bg-black/60">
       <div className="flex-grow flex flex-col items-center w-full pb-12 pt-28 px-4 sm:px-8">
@@ -53,92 +14,68 @@ const Contact = () => {
             Iniciar Protocolo
           </h2>
           <p className="text-lg text-gray-300 mt-4 leading-relaxed max-w-2xl mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
-             ¿Listo para optimizar tus procesos y llevar tu negocio al siguiente nivel?
+             Conecta con nosotros a través de nuestros canales oficiales.
           </p>
         </header>
 
-        <div className="w-full max-w-[1200px] grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 mb-20 md:mb-32">
+        <div className="w-full max-w-[1000px] flex flex-col items-center gap-12 sm:gap-16 mb-20 md:mb-32">
             
-            <div className="space-y-8 animate-[slideInLeft_0.8s_ease-out]">
-                <div className="bg-[#0a0f1e]/40 border border-[#00aaff]/20 p-8 rounded-2xl backdrop-blur-sm">
+            <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8 animate-[fadeInUp_0.8s_ease-out]">
+                <div className="bg-[#0a0f1e]/40 border border-[#00aaff]/20 p-8 rounded-2xl backdrop-blur-sm h-full flex flex-col">
                     <h3 className="text-2xl font-bold text-white mb-6 border-b border-white/10 pb-4">
                         Canales de Comunicación
                     </h3>
-                    <div className="space-y-6">
-                        <ContactItem icon="📧" label="Email" value="devlfo@gmail.com" href="mailto:contact@devlfo.com" />
-                        <ContactItem icon="📱" label="Phone" value="3146027803" href="tel:+573146027803" />
-                        <ContactItem icon="📍" label="HQ" value="Monteria-Colombia" />
+                    <div className="space-y-6 flex-grow">
+                        <ContactItem 
+                            icon={<span className="text-2xl">📧</span>} 
+                            label="Email" 
+                            value="devlfo@gmail.com" 
+                            href="mailto:devlfo@gmail.com" 
+                        />
+                         <ContactItem 
+                            icon={
+                                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.65-1.55-1.1-.06-.06-.11-.13-.2-.25v4.54c0 3.86-1.28 7.39-4.32 9.77-2.37 1.86-5.46 2.37-8.39 1.52-2.95-.86-5.11-3.16-5.83-6.15-.72-3.03.01-6.17 2.05-8.49 1.95-2.22 4.96-3.32 7.82-2.82.04.57.06 1.15.06 1.73.01 1.25.06 2.51.05 3.76-.02.16-.14.24-.26.31-1.39.82-2.3 2.19-2.37 3.79-.06 1.34.62 2.63 1.74 3.4 1.17.8 2.67.75 3.79-.24 1.1-.96 1.63-2.36 1.62-3.83-.01-4.73.01-9.45.01-14.18 0-.25-.01-.51.01-.76.02-.13.12-.25.22-.38z"/></svg>
+                            } 
+                            label="TikTok" 
+                            value="@devlfo" 
+                            href="https://tiktok.com/@devlfo" 
+                        />
+                        <ContactItem 
+                            icon={
+                                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                            } 
+                            label="Facebook" 
+                            value="/devlfo" 
+                            href="https://facebook.com/devlfo" 
+                        />
+                        <ContactItem 
+                            icon={
+                                <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+                            } 
+                            label="Instagram" 
+                            value="@devlfo" 
+                            href="https://instagram.com/devlfo" 
+                        />
                     </div>
                 </div>
 
-                <div className="bg-[#0a0f1e]/40 border border-[#00aaff]/20 p-8 rounded-2xl backdrop-blur-sm">
-                    <h3 className="text-xl font-bold text-white mb-4">Disponibilidad</h3>
-                    <p className="text-gray-400 mb-2">Lun - Viernes: 08:00 - 19:00 (Sync)</p>
-                    <p className="text-gray-400">Sab - Dom: Solo Urgencias</p>
-                </div>
-            </div>
-
-            <div className="animate-[slideInRight_0.8s_ease-out]">
-                <form onSubmit={handleSubmit} ref={form} className="bg-[#0a1428]/60 border border-white/10 p-8 sm:p-10 rounded-2xl backdrop-blur-md shadow-[0_0_50px_rgba(0,0,0,0.5)]">
-                    <div className="space-y-6">
-                        <InputGroup 
-                            label="Identificador (Nombre)" 
-                            name="name" 
-                            type="text" 
-                            placeholder="John Doe" 
-                            value={formState.name} 
-                            onChange={handleChange} 
-                            required 
-                        />
-                        <InputGroup 
-                            label="Email de Respuesta (Email)" 
-                            name="email" 
-                            type="email" 
-                            placeholder="john@example.com" 
-                            value={formState.email} 
-                            onChange={handleChange} 
-                            required
-                        />
-                        <div className="flex flex-col space-y-2">
-                            <label className="text-sm font-bold text-[#00aaff] uppercase tracking-wider">Mensaje</label>
-                            <textarea 
-                                name="message"
-                                rows="5"
-                                value={formState.message}
-                                onChange={handleChange}
-                                placeholder="Describe los requisitos de tu proyecto..."
-                                className="bg-black/40 border border-white/20 rounded-lg p-4 text-white focus:outline-none focus:border-[#00aaff] focus:ring-1 focus:ring-[#00aaff]/50 transition-all duration-300 resize-none placeholder-gray-600"
-                                required
-                            ></textarea>
+                <div className="bg-[#0a0f1e]/40 border border-[#00aaff]/20 p-8 rounded-2xl backdrop-blur-sm flex flex-col justify-center">
+                    <h3 className="text-xl font-bold text-white mb-4 border-b border-white/10 pb-4">Disponibilidad</h3>
+                    <div className="space-y-4">
+                        <div>
+                            <p className="text-[#00aaff] font-bold text-sm uppercase tracking-wider mb-1">Horario Laboral</p>
+                            <p className="text-gray-300">Lunes - Viernes: 08:00 - 19:00 (Sync)</p>
                         </div>
-
-                        {/* Mensaje de Estado */}
-                        {status.message && (
-                          <div className={`text-sm font-bold p-3 rounded border ${
-                            status.type === 'success' ? 'bg-green-500/10 border-green-500 text-green-400' : 
-                            status.type === 'error' ? 'bg-red-500/10 border-red-500 text-red-400' : 
-                            'bg-blue-500/10 border-blue-500 text-blue-400'
-                          }`}>
-                            {status.message}
-                          </div>
-                        )}
-
-                        <button 
-                            type="submit" 
-                            disabled={status.loading}
-                            className={`
-                            w-full py-4 mt-4 text-base font-bold text-black bg-[#00aaff] rounded-lg cursor-pointer uppercase tracking-[0.1em] border-none
-                            shadow-[0_0_20px_rgba(0,170,255,0.4)] transition-all duration-300 ease-out
-                            hover:bg-white hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(0,170,255,0.6)]
-                            ${status.loading ? 'opacity-50 cursor-not-allowed' : ''}
-                        `}>
-                            {status.loading ? 'Transmitiendo...' : 'Enviar Mensaje'}
-                        </button>
+                        <div>
+                            <p className="text-[#00aaff] font-bold text-sm uppercase tracking-wider mb-1">Fin de Semana</p>
+                            <p className="text-gray-300">Sábado - Domingo: Solo Urgencias</p>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
       </div>
+      <WhatsAppButton />
     </div>
   );
 };

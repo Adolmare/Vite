@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Footer from '../../components/Footer'
 
 const Services = () => {
 return (
@@ -95,9 +96,7 @@ return (
 
       </div>
 
-      <footer className="py-6 text-sm text-white/40 text-center border-t border-white/10 w-full shrink-0">
-        <p>© {new Date().getFullYear()} Devlfo Systems. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 };

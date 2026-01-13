@@ -1,14 +1,14 @@
 
-import { useState } from 'react'
+import { useState, Suspense, lazy } from 'react'
 import './App.css'
 import { GridScan } from '../components/GridScan.jsx'
-import Services from './pages/Services.jsx'
 import Navbar from '../components/Navbar.jsx'
-import Homepage from './pages/Homepage.jsx'
-import Footer from '../components/Footer.jsx'
-import Abouts from './pages/Abouts.jsx'
-import Contact from './pages/Contact.jsx'
-import Projects from './pages/Projects.jsx'
+
+const Services = lazy(() => import('./pages/Services.jsx'));
+const Homepage = lazy(() => import('./pages/Homepage.jsx'));
+const Abouts = lazy(() => import('./pages/Abouts.jsx'));
+const Contact = lazy(() => import('./pages/Contact.jsx'));
+const Projects = lazy(() => import('./pages/Projects.jsx'));
 
 function App() {
   const [currentPage, setCurrentPage] = useState('home');
@@ -44,12 +44,10 @@ function App() {
         />
       </div>
       <main style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%' }}>
-        {renderPage()}
+        <Suspense fallback={<div className="flex items-center justify-center h-full text-[#00aaff]">Loading...</div>}>
+          {renderPage()}
+        </Suspense>
       </main>
-  
-      <footer>
-        <Footer></Footer>
-      </footer>
     </>
   )
 }
