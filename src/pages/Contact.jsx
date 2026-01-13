@@ -29,8 +29,8 @@ const Contact = () => {
                         <ContactItem 
                             icon={<span className="text-2xl">📧</span>} 
                             label="Email" 
-                            value="devlfo@gmail.com" 
-                            href="mailto:devlfo@gmail.com" 
+                            value="thedeveduboss@gmail.com" 
+                            href="mailto:thedeveduboss@gmail.com" 
                         />
                          <ContactItem 
                             icon={
@@ -38,7 +38,7 @@ const Contact = () => {
                             } 
                             label="TikTok" 
                             value="@devlfo" 
-                            href="https://tiktok.com/@devlfo" 
+                            href="https://www.tiktok.com/@devlfo?is_from_webapp=1&sender_device=pc" 
                         />
                         <ContactItem 
                             icon={
@@ -54,7 +54,7 @@ const Contact = () => {
                             } 
                             label="Instagram" 
                             value="@devlfo" 
-                            href="https://instagram.com/devlfo" 
+                            href="https://www.instagram.com/devl.fo/" 
                         />
                     </div>
                 </div>
