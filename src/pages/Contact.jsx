@@ -59,7 +59,7 @@ const Contact = () => {
                     </div>
                 </div>
 
-                <div className="bg-[#0a0f1e]/40 border border-[#00aaff]/20 p-8 rounded-2xl backdrop-blur-sm flex flex-col justify-center">
+                <div className="bg-[#0a0f1e]/40 border border-[#00aaff]/20 p-8 rounded-2xl backdrop-blur-sm flex flex-col text-center ">
                     <h3 className="text-xl font-bold text-white mb-4 border-b border-white/10 pb-4">Disponibilidad</h3>
                     <div className="space-y-4">
                         <div>
